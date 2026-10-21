@@ -1,0 +1,314 @@
+{
+  "info": {
+    "name": "Lab Drools - Credito",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Prueba 1 RejectLowCreditScore",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Ana Gómez\",\n        \"age\": 25,\n        \"monthlyIncome\": 2000.0,\n        \"creditScore\": 450\n    },\n    \"creditType\": \"personal\",\n    \"requestAmount\": 10000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 2 RejectUnderAge",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Luis Martínez\",\n        \"age\": 16,\n        \"monthlyIncome\": 2000.0,\n        \"creditScore\": 700\n    },\n    \"creditType\": \"personal\",\n    \"requestAmount\": 10000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 3 PersonalCreditApproval tasa baja",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Juan Pérez\",\n        \"age\": 30,\n        \"monthlyIncome\": 2000.0,\n        \"creditScore\": 750\n    },\n    \"creditType\": \"personal\",\n    \"requestAmount\": 15000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 4 PersonalCreditApproval tasa alta",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"María López\",\n        \"age\": 28,\n        \"monthlyIncome\": 1500.0,\n        \"creditScore\": 600\n    },\n    \"creditType\": \"personal\",\n    \"requestAmount\": 20000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 5 MortgageCreditApproval tasa baja",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Carlos García\",\n        \"age\": 35,\n        \"monthlyIncome\": 4000.0,\n        \"creditScore\": 800\n    },\n    \"creditType\": \"hipotecario\",\n    \"requestAmount\": 150000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 6 MortgageCreditApproval tasa alta",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Sofía Ramírez\",\n        \"age\": 40,\n        \"monthlyIncome\": 3500.0,\n        \"creditScore\": 650\n    },\n    \"creditType\": \"hipotecario\",\n    \"requestAmount\": 200000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 7 AutoCreditApproval tasa baja",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Pedro Sánchez\",\n        \"age\": 32,\n        \"monthlyIncome\": 2500.0,\n        \"creditScore\": 720\n    },\n    \"creditType\": \"automotriz\",\n    \"requestAmount\": 30000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 8 AutoCreditApproval tasa alta",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Laura Torres\",\n        \"age\": 29,\n        \"monthlyIncome\": 1800.0,\n        \"creditScore\": 600\n    },\n    \"creditType\": \"automotriz\",\n    \"requestAmount\": 40000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 9 RejectInvalidCreditType",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"customer\": {\n        \"name\": \"Diego Morales\",\n        \"age\": 27,\n        \"monthlyIncome\": 2000.0,\n        \"creditScore\": 650\n    },\n    \"creditType\": \"hipotecario\",\n    \"requestAmount\": 100000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/credit/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "credit",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    }
+  ]
+}

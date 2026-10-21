@@ -1,0 +1,11 @@
+debug: true
+
+spring:
+  application:
+    name: labdrools
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:no-configurada}
+      chat:
+        options:
+          model: gpt-4o-mini

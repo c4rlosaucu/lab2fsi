@@ -1,0 +1,128 @@
+package rules
+
+import com.udea.aerolinea.model.Passenger
+import com.udea.aerolinea.model.Flight
+import com.udea.aerolinea.model.ServiceResult
+
+// Hechos en memoria de trabajo: un Passenger, un Flight y un ServiceResult
+// (el ServiceResult es el objeto que las reglas van llenando).
+//
+// Prioridades (salience): cuando dos reglas pueden chocar, la de mayor
+// salience se ejecuta primero. Las demas reglas tienen salience 0.
+
+// Regla 4: Equipaje mayor a 23 kg -> no elegible para ascensos.
+// Va primero (salience 100) para que la regla 1 ya no pueda ascender al pasajero.
+rule "DenyUpgradeForOverweightLuggage"
+    salience 100
+    no-loop true
+    when
+        Passenger(luggageWeight > 23)
+        $r : ServiceResult()
+    then
+        $r.addAppliedRule("DenyUpgradeForOverweightLuggage");
+        modify($r) { setEligibleForUpgrade(false) }
+end
+
+// Regla 10: Familia con ninos y sin preferencia de asiento -> asiento preferencial.
+// Va antes que la regla 5 (salience 20 contra 10) porque los ninos no deben
+// sentarse en la salida de emergencia.
+rule "PreferentialSeatForFamilies"
+    salience 20
+    no-loop true
+    when
+        Passenger(travelingWithChildren == true, seatPreference == "Any")
+        $r : ServiceResult(seatAssignment == null)
+    then
+        $r.addAppliedRule("PreferentialSeatForFamilies");
+        modify($r) { setSeatAssignment("PREFERENCIAL_FAMILIAR") }
+end
+
+// Regla 5: Pasajero de 18 a 40 anos, preferencia "Any" y salida de emergencia disponible.
+// Asigna el asiento y marca la salida como ocupada.
+rule "AssignEmergencyExitSeatToYoungAdults"
+    salience 10
+    no-loop true
+    when
+        Passenger(age >= 18, age <= 40, seatPreference == "Any")
+        $f : Flight(emergencyExitSeatAvailable == true)
+        $r : ServiceResult(seatAssignment == null)
+    then
+        $r.addAppliedRule("AssignEmergencyExitSeatToYoungAdults");
+        modify($f) { setEmergencyExitSeatAvailable(false) }
+        modify($r) { setSeatAssignment("SALIDA_DE_EMERGENCIA") }
+end
+
+// Regla 1: Gold o Platinum con mas de 60 minutos de retraso -> clase ejecutiva.
+// Solo si el pasajero sigue siendo elegible (ver regla 4).
+rule "UpgradeToBusinessClassForFrequentFlyersWithDelays"
+    salience 50
+    when
+        Passenger(membership in ("Gold", "Platinum"))
+        Flight(delayMinutes > 60)
+        $r : ServiceResult(eligibleForUpgrade == true)
+    then
+        $r.setUpgradedToBusiness(true);
+        $r.addAppliedRule("UpgradeToBusinessClassForFrequentFlyersWithDelays");
+end
+
+// Regla 2: Pasajero mayor de 65 anos -> check-in prioritario.
+rule "PriorityCheckInForSeniors"
+    when
+        Passenger(age > 65)
+        $r : ServiceResult()
+    then
+        $r.setPriorityCheckIn(true);
+        $r.addAppliedRule("PriorityCheckInForSeniors");
+end
+
+// Regla 3: Equipaje menor a 10 kg -> descuento del 10%.
+rule "DiscountForLightLuggage"
+    when
+        Passenger(luggageWeight < 10)
+        $r : ServiceResult()
+    then
+        $r.setDiscountPercent(10.0);
+        $r.addAppliedRule("DiscountForLightLuggage");
+end
+
+// Regla 6: Retraso mayor a 180 minutos -> compensacion de 200 dolares.
+rule "CompensationForExtremeDelays"
+    when
+        Flight(delayMinutes > 180)
+        $r : ServiceResult()
+    then
+        $r.setCompensation(200.0);
+        $r.addAppliedRule("CompensationForExtremeDelays");
+end
+
+// Regla 7: Membresia distinta de Basic en vuelo de mas de 5 horas -> 500 puntos.
+rule "ExtraLoyaltyPointsForLongFlights"
+    when
+        Passenger(membership != "Basic")
+        Flight(durationHours > 5)
+        $r : ServiceResult()
+    then
+        $r.setLoyaltyPoints($r.getLoyaltyPoints() + 500);
+        $r.addAppliedRule("ExtraLoyaltyPointsForLongFlights");
+end
+
+// Regla 8: Equipaje mayor a 15 kg en vuelo de menos de 2 horas -> equipaje no permitido.
+rule "RestrictLuggageOnShortFlights"
+    when
+        Passenger(luggageWeight > 15)
+        Flight(durationHours < 2)
+        $r : ServiceResult()
+    then
+        $r.setLuggageAllowed(false);
+        $r.addAppliedRule("RestrictLuggageOnShortFlights");
+end
+
+// Regla 9: Membresia Platinum -> acceso al salon VIP.
+rule "VipLoungeAccessForPlatinumMembers"
+    when
+        Passenger(membership == "Platinum")
+        $r : ServiceResult()
+    then
+        $r.setVipLoungeAccess(true);
+        $r.addAppliedRule("VipLoungeAccessForPlatinumMembers");
+end

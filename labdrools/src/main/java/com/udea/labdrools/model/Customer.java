@@ -1,0 +1,66 @@
+package com.udea.labdrools.model;
+
+import jakarta.validation.constraints.*;
+
+public class Customer {
+    @NotBlank(message = "El nombre no puede estar vacio")
+    @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
+    private String name;
+
+    @NotNull(message ="La edad es obligatoria")
+    @Min(value = 18, message = "La edad debe ser al menos 18 años")
+    private int age;
+    @NotNull(message = "Los ingresos mensuales son obligatorios")
+    @Min(value = 0, message = "Los ingresos mensuales no pueden ser negativos")
+    private double monthlyIncome;
+    @NotNull(message = "El puntaje crediticio es obligatorio")
+    @Min(value = 0, message = "El puntaje crediticio no puede ser negativo")
+    @Min(value = 0, message = "El puntaje crediticio debe estar entre 0 y 1000 puntos")
+    @Max(value = 1000, message = "El puntaje crediticio debe estar entre 0 y 1000 puntos")
+    private int creditScore;
+
+    public Customer() {
+    }
+
+    public Customer(String name, int age, double monthlyIncome, int creditScore) {
+        this.name = name;
+        this.age = age;
+        this.monthlyIncome = monthlyIncome;
+        this.creditScore = creditScore;
+    }
+
+    public  String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    public double getMonthlyIncome() {
+        return monthlyIncome;
+    }
+
+    public void setMonthlyIncome(double monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+
+    public int getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore( int creditScore) {
+        this.creditScore = creditScore;
+    }
+}

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: aerolinea
+
+# Puerto distinto al de labdrools (8080) para poder correr ambos a la vez
+server:
+  port: 8081

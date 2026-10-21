@@ -1,0 +1,416 @@
+{
+  "info": {
+    "name": "Aerolinea Drools",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Regla 1 UpgradeToBusinessClass",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Ana Gómez\",\n        \"age\": 30,\n        \"membership\": \"Gold\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV100\",\n        \"delayMinutes\": 90,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 2 PriorityCheckInForSeniors",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Luis Martínez\",\n        \"age\": 70,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV101\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 3 DiscountForLightLuggage",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Juan Pérez\",\n        \"age\": 30,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 8\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV102\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 4 DenyUpgradeForOverweightLuggage (gana a la regla 1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"María López\",\n        \"age\": 30,\n        \"membership\": \"Gold\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 25\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV103\",\n        \"delayMinutes\": 90,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 5 AssignEmergencyExitSeat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Carlos García\",\n        \"age\": 30,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Any\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV104\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": true\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 6 CompensationForExtremeDelays",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Sofía Ramírez\",\n        \"age\": 40,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV105\",\n        \"delayMinutes\": 200,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 7 ExtraLoyaltyPoints",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Pedro Sánchez\",\n        \"age\": 32,\n        \"membership\": \"Silver\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV106\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 6,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 8 RestrictLuggageOnShortFlights",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Laura Torres\",\n        \"age\": 29,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 16\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV107\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 1.5,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 9 VipLoungeAccess",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Diego Morales\",\n        \"age\": 45,\n        \"membership\": \"Platinum\",\n        \"seatPreference\": \"Window\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV108\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Regla 10 PreferentialSeatForFamilies",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Camila Ruiz\",\n        \"age\": 35,\n        \"membership\": \"Basic\",\n        \"seatPreference\": \"Any\",\n        \"travelingWithChildren\": true,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV109\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": true\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Varias reglas a la vez",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Elena Vargas\",\n        \"age\": 70,\n        \"membership\": \"Platinum\",\n        \"seatPreference\": \"Aisle\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 8\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV110\",\n        \"delayMinutes\": 200,\n        \"durationHours\": 6,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Validacion: membresia invalida",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"passenger\": {\n        \"name\": \"Prueba\",\n        \"age\": 30,\n        \"membership\": \"Diamond\",\n        \"seatPreference\": \"Any\",\n        \"travelingWithChildren\": false,\n        \"luggageWeight\": 12\n    },\n    \"flight\": {\n        \"flightNumber\": \"AV111\",\n        \"delayMinutes\": 0,\n        \"durationHours\": 3,\n        \"emergencyExitSeatAvailable\": false\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/airline/api/evaluate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "airline",
+            "api",
+            "evaluate"
+          ]
+        }
+      }
+    }
+  ]
+}
