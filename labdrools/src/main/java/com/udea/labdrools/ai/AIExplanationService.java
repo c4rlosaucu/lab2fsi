@@ -23,10 +23,15 @@ public class AIExplanationService {
                 - Porque se activó
                 - Que significa para el cliente
                 """.formatted(decison);
-        return chatClient.prompt()
-                .user(prompt)
-                .call()
-                .content();
+        try {
+            return chatClient.prompt()
+                    .user(prompt)
+                    .call()
+                    .content();
+        } catch (Exception e) {
+            // Si la IA falla (sin saldo, sin clave, sin red), la decision de Drools no se pierde
+            return "Explicacion de IA no disponible: " + e.getClass().getSimpleName();
+        }
     }
 
 }
